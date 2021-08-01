@@ -31,6 +31,7 @@ jobs:
       uses: getnikola/nikola-action@v3
       with:
         dry_run: false
+        apt_get: false
 ```
 
 ## Options
