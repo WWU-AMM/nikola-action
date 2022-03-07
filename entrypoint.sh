@@ -7,6 +7,13 @@ set -e
 echo "REPO: $GITHUB_REPOSITORY"
 echo "ACTOR: $GITHUB_ACTOR"
 
+echo "==> Installing requirements..."
+if [[ -f "requirements.txt" ]]; then
+    pip install -r requirements.txt 
+else
+    pip install "Nikola[extras]"
+fi
+
 echo "==> Preparing..."
 if ! $INPUT_DRY_RUN; then
     src_branch="$(python -c 'import conf; print(conf.GITHUB_SOURCE_BRANCH)')"
@@ -22,13 +29,6 @@ if ! $INPUT_DRY_RUN; then
     printf '\n\nGITHUB_REMOTE_NAME = "ghpages"\nGITHUB_COMMIT_SOURCE = False\n' >> conf.py
 else
     echo "Dry-run, skipping..."
-fi
-
-echo "==> Installing requirements..."
-if [[ -f "requirements.txt" ]]; then
-    pip install -r requirements.txt 
-else
-    pip install "Nikola[extras]"
 fi
 
 echo "==> Building site..."
