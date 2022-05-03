@@ -34,6 +34,9 @@ fi
 echo "==> Building site..."
 nikola build
 
+echo "==> Checking links and files..."
+nikola check -lf
+
 echo "==> Publishing..."
 if ! $INPUT_DRY_RUN; then
     nikola github_deploy
